@@ -1,10 +1,10 @@
+torch
 tqdm
 torchmetrics
 einops
 class-resolver
 torchvision
 pandas
-torchvision
 prettytable
 wandb
 scikit-learn

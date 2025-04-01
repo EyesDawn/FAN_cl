@@ -113,6 +113,9 @@ def time_features_from_frequency_str(freq_str: str) -> List[TimeFeature]:
 
 def time_features(dates:pd.DataFrame, timeenc=1, freq='h') -> np.ndarray:
     """
+    当 timeenc == 0 时，返回的是包含选定时间特征的二维数组，数组的每一行代表一个时间戳，每一列代表一个时间特征（如月份、日期、星期几、小时等）。
+    当 timeenc == 1 时，返回一个经过归一化处理的特征矩阵，矩阵的每一行代表一个时间戳，每一列代表一个时间特征。
+    
     encode time features based on data sample freqency
     > `time_features` takes in a `dates` dataframe with a 'dates' column and extracts the date down to `freq` where freq can be any of the following if `timeenc` is 0: 
     > * m - [month]

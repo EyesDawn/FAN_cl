@@ -17,9 +17,13 @@ class ChunkSequenceTimefeatureDataLoader:
         self,
         dataset: TimeSeriesDataset,
         scaler: Scaler,
+        # 时间编码方式
         time_enc=0,
+        # 输入窗口大小
         window: int = 168,
+        # 预测前的延迟时间
         horizon: int = 3,
+        # 预测的时间步长
         steps: int = 2,
         scale_in_train=False,
         shuffle_train=True,
@@ -27,6 +31,7 @@ class ChunkSequenceTimefeatureDataLoader:
         batch_size: int = 32,
         train_ratio: float = 0.7,
         val_ratio: float = 0.2,
+        # 数据加载的线程数
         num_worker: int = 3,
         uniform_eval=True,
     ) -> None:

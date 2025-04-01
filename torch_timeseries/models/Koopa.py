@@ -285,8 +285,11 @@ class Koopa(nn.Module):
         # x_enc: B L C
 
         # Series Stationarization adopted from NSformer
-        mean_enc = x_enc.mean(1, keepdim=True).detach() # B x 1 x E
+        # mean_enc: 计算输入序列 x_enc 在时间维度上的均值，并保持其在 batch 维度上不变。
+        # 使用 detach() 方法确保这些均值和标准差从计算图中分离出来，从而保持这些值不变。
+        mean_enc = x_enc.mean(1, keepdim=True).detach() # B x 1 x C
         x_enc = x_enc - mean_enc
+        # std_enc: 计算输入序列 x_enc 在时间维度上的标准差，并保持其在 batch 维度上不变
         std_enc = torch.sqrt(torch.var(x_enc, dim=1, keepdim=True, unbiased=False) + 1e-5).detach()
         x_enc = x_enc / std_enc
 

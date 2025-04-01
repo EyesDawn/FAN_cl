@@ -9,6 +9,7 @@ def main_freq_part(x, k, rfft=True):
     # freq normalization
     # start = time.time()
     if rfft:
+        # dim=1 表示在张量的第二个维度（时间维度）上进行傅里叶变换
         xf = torch.fft.rfft(x, dim=1)
     else:
         xf = torch.fft.fft(x, dim=1)
@@ -66,7 +67,7 @@ class FAN(nn.Module):
         
         
     def normalize(self, input):
-        # (B, T, N)
+        # (B, T, N) B: batch_size (批次大小), T: window (时间窗口长度), N: num_features (特征数量)
         bs, len, dim = input.shape
         norm_input, x_filtered = main_freq_part(input, self.freq_topk, self.rfft)
         self.pred_main_freq_signal = self.model_freq(x_filtered.transpose(1,2), input.transpose(1,2)).transpose(1,2)
@@ -75,7 +76,7 @@ class FAN(nn.Module):
 
 
     def denormalize(self, input_norm):
-        # input:  (B, O, N)
+        # input:  (B, O, N) O: output_len (预测长度), N: num_features (特征数量)
         # station_pred: outputs of normalize
         bs, len, dim = input_norm.shape
         # freq denormalize
