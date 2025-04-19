@@ -29,10 +29,10 @@ device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 traffic_data = Traffic(root='./data')
 data = traffic_data.data  # (17544, 862)
 
-# 使用数据集的1%
+# 使用数据集的20%
 num_features = data.shape[1]    # 获取列数（特征数量 862）
-selected_features = np.random.choice(num_features, size=int(num_features * 0.01), replace=False)
-data = data[:, selected_features]  # 只使用1%的特征
+selected_features = np.random.choice(num_features, size=int(num_features * 0.2), replace=False)
+data = data[:, selected_features]  # 只使用20%的特征
 
 # 数据预处理
 def create_sequences(data, seq_len, pred_len):
